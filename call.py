@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 
 # 페이지 설정
-st.set_page_config(page_title="선거여론조사 통합 분석기 V4", layout="wide")
+st.set_page_config(page_title="선거여론조사 응답률 분석기", layout="wide")
 
 st.title("🗳️ 선거여론조사 통합 분석 및 지표 산출")
-st.caption("콜로그 기준 분석 | 안심번호 자동 매칭 | 전체 합계 상단 배치")
+st.caption("장부장이 금요일 바라던게 이게 맞는지?")
 
 # 1. 콜로그 매핑 딕셔너리
 mapping_dict = {
@@ -86,18 +86,20 @@ if log_file:
             combined['성공+거절'] = combined['5 면접성공'] + combined['4 거절중단']
             combined['e'] = (combined['성공+거절'] / (combined['성공+거절'] + combined['2 비적격'])).fillna(0)
             combined['접촉률분모'] = combined['성공+거절'] + (combined['3 비수신'] * combined['e'])
+            combined['응답률분모'] = combined['성공+거절']
             
             combined['접촉률(%)'] = (combined['성공+거절'] / combined['접촉률분모'] * 100).fillna(0).round(1)
             combined['응답률(%)'] = (combined['5 면접성공'] / combined['성공+거절'] * 100).fillna(0).round(1)
+            combined['RR(%)'] = (combined['접촉률(%)'] * combined['응답률(%)'] * 100).fillna(0).round(1)
             
-            return combined[["1 결번", "2 비적격", "3 비수신", "4 거절중단", "5 면접성공", "전체(N)", "e", "접촉률(%)", "응답률(%)"]]
+            return combined[["1 결번", "2 비적격", "3 비수신", "4 거절중단", "5 면접성공", "전체(N)", "접촉률분모","응답률분모", "접촉률(%)", "응답률(%)", "RR(%)"]]
 
         # 결과 테이블 생성
         result_table = calculate_nesdc_metrics(final_df, cross_var)
         
         st.subheader(f"📍 {cross_var}별 분석 결과 (상단: 전체 합계)")
         st.dataframe(result_table.style.format({
-            'e': '{:.3f}', '접촉률(%)': '{:.1f}%', '응답률(%)': '{:.1f}%'
+            '접촉률(%)': '{:.1f}%', '응답률(%)': '{:.1f}%', 'RR(%)': '{:.1f}%'
         }))
         
         # 상세 데이터 및 다운로드
