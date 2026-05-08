@@ -85,12 +85,12 @@ if log_file:
             combined['전체(N)'] = combined.sum(axis=1)
             combined['성공+거절'] = combined['5 면접성공'] + combined['4 거절중단']
             combined['e'] = (combined['성공+거절'] / (combined['성공+거절'] + combined['2 비적격'])).fillna(0)
-            combined['접촉률분모'] = combined['성공+거절'] + (combined['3 비수신'] * combined['e'])
+            combined['접촉률분모'] = combined['성공+거절'] + (combined['3 비수신'] * combined['e']).fillna(0).round(0)
             combined['응답률분모'] = combined['성공+거절']
             
             combined['접촉률(%)'] = (combined['성공+거절'] / combined['접촉률분모'] * 100).fillna(0).round(1)
             combined['응답률(%)'] = (combined['5 면접성공'] / combined['성공+거절'] * 100).fillna(0).round(1)
-            combined['RR(%)'] = (combined['접촉률(%)'] * combined['응답률(%)'] * 100).fillna(0).round(1)
+            combined['RR(%)'] = (combined['접촉률(%)'] * combined['응답률(%)'] / 100).fillna(0).round(1)
             
             return combined[["1 결번", "2 비적격", "3 비수신", "4 거절중단", "5 면접성공", "전체(N)", "접촉률분모","응답률분모", "접촉률(%)", "응답률(%)", "RR(%)"]]
 
