@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 
 # 페이지 설정
-st.set_page_config(page_title="선거여론조사 응답률 분석기", layout="wide")
+st.set_page_config(page_title="선거여론조사 콜로그 분석", layout="wide")
 
-st.title("🗳️ 선거여론조사 콜로그 분석 및 응답률 산출")
+st.title("🗳️ 선거여론조사 콜로그 분석")
 st.caption("장부장이 금요일 바라던게 이게 맞는지?")
 
 # 1. 콜로그 매핑 딕셔너리
