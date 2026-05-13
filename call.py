@@ -20,9 +20,9 @@ mapping_dict = {
 # 파일 업로드 섹션
 col1, col2 = st.columns(2)
 with col1:
-    log_file = st.file_uploader("1️⃣ 콜로그 엑셀 파일 (필수)", type=["xlsx","xls"])
+    log_file = st.file_uploader("1️⃣ 콜로그 엑셀 파일 (필수)", type=["xlsx"])
 with col2:
-    attr_file = st.file_uploader("2️⃣ 번호 특성 파일 (선택)", type=["xlsx", "xls"])
+    attr_file = st.file_uploader("2️⃣ 번호 특성 파일 (선택)", type=["xlsx"])
 
 if log_file:
     # 1. 콜로그 데이터 로드 및 정리
