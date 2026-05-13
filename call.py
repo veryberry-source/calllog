@@ -6,7 +6,7 @@ import numpy as np
 st.set_page_config(page_title="선거여론조사 콜로그 분석", layout="wide")
 
 st.title("🗳️ 선거여론조사 콜로그 분석")
-st.caption("장부장이 금요일 바라던게 이게 맞는지?")
+st.caption("응답률 산출 및 특성별 집계")
 
 # 1. 콜로그 매핑 딕셔너리
 mapping_dict = {
@@ -20,9 +20,9 @@ mapping_dict = {
 # 파일 업로드 섹션
 col1, col2 = st.columns(2)
 with col1:
-    log_file = st.file_uploader("1️⃣ 콜로그 엑셀 파일 (필수)", type=["xlsx"])
+    log_file = st.file_uploader("1️⃣ 콜로그 엑셀 파일 (필수)", type=["xlsx","xls"])
 with col2:
-    attr_file = st.file_uploader("2️⃣ 번호 특성 파일 (선택)", type=["xlsx"])
+    attr_file = st.file_uploader("2️⃣ 번호 특성 파일 (선택)", type=["xlsx", "xls"])
 
 if log_file:
     # 1. 콜로그 데이터 로드 및 정리
